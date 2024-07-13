@@ -1,0 +1,61 @@
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Gender {
+  male 
+  female
+}
+
+
+model user {
+  id String @id @default(cuid())
+  username String @unique
+  fullname String
+  password String
+  gender Gender
+  profilepic String
+  createdAT DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  conversationIds String[]
+
+  conversation Conversation[]
+  messages Message[]
+}
+
+
+model Conversation {
+  id String @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  participantIds String[]
+  participants user[]
+
+  messageIds String[] 
+  messages Message[]
+}
+
+
+model Message{
+id String @id @default(cuid())
+
+conversationId String
+conversation Conversation @relation(fields: [conversationId], references: [id])
+
+senderId String
+sender user @relation(fields: [senderId], references: [id])
+
+createdAt DateTime @default(now())
+updatedAt DateTime @updatedAt
+body String
+}
+
