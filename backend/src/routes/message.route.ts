@@ -1,9 +1,11 @@
 import express  from "express";
-import { getMessage } from "../controllers/message.controllers.js";
+import { getConversations, getMessage, sendMessage } from "../controllers/message.controllers.js";
+import isAuthenticated from "../middlewares/isAuthenticated.js";
 const router =  express.Router();
 
 
-router.get('/message', getMessage)
-
+router.post('/send/:id',isAuthenticated, sendMessage)
+router.get('/conversations', isAuthenticated, getConversations)
+router.get('/:id', isAuthenticated, getMessage)
 
 export default router
