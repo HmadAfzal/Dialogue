@@ -5,7 +5,7 @@ const Message = ({ message }: { message?: any }) => {
 		? "https://avatar.iran.liara.run/public/boy?username=johndoe"
 		: "https://avatar.iran.liara.run/public/boy?username=janedoe";
 
-	const bubbleBg = fromMe ? "bg-blue-500" : "";
+	const bubbleBg = fromMe ? "bg-[#3bb9a4]" : "";
 	return (
 		<div className={`chat ${chatClass}`}>
 			<div className='hidden md:block chat-image avatar'>

@@ -45,7 +45,7 @@ model Conversation {
 }
 
 
-model Message{
+model Message {
 id String @id @default(cuid())
 
 conversationId String

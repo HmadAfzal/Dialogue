@@ -1,66 +1,105 @@
 import { Link } from "react-router-dom";
 import GenderCheckbox from "../components/GenderCheckbox";
+import { useForm } from 'react-hook-form';
+import { signupFormInput, SignupSchema } from "../Schema/signup";
+import { zodResolver } from '@hookform/resolvers/zod';
+import axios from "axios";
+import { useAppDispatch } from "../redux/hooks";
+import { useState } from "react";
+import { ApiResponse } from "../Schema/ApiResponse";
+import { initializeUser } from "../redux/userslice";
+import {useNavigate} from 'react-router-dom'
+import toast from "react-hot-toast";
 
 const SignUp = () => {
+	const { register, handleSubmit,formState: { errors }, } = useForm<signupFormInput>({ resolver: zodResolver(SignupSchema) });
+	const [loading, setLoading]=useState(false)
+	const dispatch = useAppDispatch()
+const navigate=useNavigate();
+
+	const onFormSubmit = async (data: signupFormInput) => {
+		try {
+			setLoading(true)
+			const response = await axios.post<ApiResponse>('/api/auth/sign-up', data)
+			console.log(response.data)
+			dispatch(initializeUser(response.data))
+			navigate('/')
+
+		} catch (error:any) {
+			console.log(error.response.data.error)
+			toast.error(error.response.data.error);
+		} finally{
+			setLoading(false)
+		}
+
+	}
+
 	return (
-		<div className='flex flex-col items-center justify-center min-w-96 mx-auto'>
-			<div className='w-full p-6 rounded-lg shadow-md bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0'>
-				<h1 className='text-3xl font-semibold text-center text-gray-300'>
-					Sign Up <span className='text-blue-500'> ChatApp</span>
+		<div className='flex flex-col items-center justify-center min-w-96 max-w-96 mx-auto'>
+			<div className='w-full p-6 rounded-lg shadow-md bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0 flex flex-col justify-center gap-8'>
+				<h1 className='text-4xl font-bold text-center text-gray-300'>
+					Sign Up <span className='text-[#249f8b]'> ChatApp</span>
 				</h1>
 
-				<form>
+				<form onSubmit={handleSubmit(onFormSubmit)} className="w-[100%]" >
 					<div>
-						<label className='label p-2'>
-							<span className='text-base label-text'>Full Name</span>
-						</label>
-						<input type='text' placeholder='John Doe' className='w-full input input-bordered  h-10' />
+						<input
+							type='text'
+							placeholder="Name"
+							className='w-full input input-bordered h-10'
+							{...register('fullname')}
+						/>
+						 <p className="pb-4 text-red-600">{errors.fullname?.message}</p>
 					</div>
 
 					<div>
-						<label className='label p-2 '>
-							<span className='text-base label-text'>Username</span>
-						</label>
-						<input type='text' placeholder='johndoe' className='w-full input input-bordered h-10' />
+						<input
+							type='text'
+							placeholder='Username'
+							className='w-full input input-bordered h-10 mb-4'
+							{...register('username')}
+						/>
+						 <p className="pb-4 text-red-600">{errors.username?.message}</p>
 					</div>
 
 					<div>
-						<label className='label'>
-							<span className='text-base label-text'>Password</span>
-						</label>
 						<input
 							type='password'
 							placeholder='Enter Password'
-							className='w-full input input-bordered h-10'
+							className='w-full input input-bordered h-10 mb-4'
+							{...register('password')}
 						/>
+						 <p className="pb-4 text-red-600">{errors.password?.message}</p>
 					</div>
 
 					<div>
-						<label className='label'>
-							<span className='text-base label-text'>Confirm Password</span>
-						</label>
 						<input
 							type='password'
 							placeholder='Confirm Password'
-							className='w-full input input-bordered h-10'
+							className='w-full input input-bordered h-10 mb-4'
+							{...register('confirmPassword')}
 						/>
+						 <p className="pb-4 text-red-600">{errors.confirmPassword?.message}</p>
 					</div>
 
-					<GenderCheckbox />
+					<GenderCheckbox register={register} />
 
 					<Link
 						to={"/login"}
-						className='text-sm hover:underline hover:text-blue-600 mt-2 inline-block text-white'
+						className='text-sm hover:underline hover:text-[#3bb9a4] my-2 inline-block text-white'
 					>
 						Already have an account?
 					</Link>
 
 					<div>
-						<button className='btn btn-block btn-sm mt-2 border border-slate-700'>Sign Up</button>
+						<button className='btn btn-block btn-sm mt-2 border py-2 border-slate-700' type="submit" disabled={loading}>
+							{loading ? 'loading...' : 'Create Account'}
+						</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	);
 };
+
 export default SignUp;
