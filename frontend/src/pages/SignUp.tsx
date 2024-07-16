@@ -21,7 +21,6 @@ const navigate=useNavigate();
 		try {
 			setLoading(true)
 			const response = await axios.post<ApiResponse>('/api/auth/sign-up', data)
-			console.log(response.data)
 			dispatch(initializeUser(response.data))
 			navigate('/')
 

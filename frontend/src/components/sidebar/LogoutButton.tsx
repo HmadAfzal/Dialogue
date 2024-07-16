@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { useAppDispatch } from "../../redux/hooks";
 import { removeUser } from "../../redux/userslice";
 import { useNavigate } from "react-router-dom";
+import { removeConversation } from "../../redux/conversationslice";
 
 const LogoutButton = () => {
 	const dispatch=useAppDispatch()
@@ -11,6 +12,7 @@ const LogoutButton = () => {
 	const logout = async() => {
 		try {
 			const response=await axios.post('/api/auth/logout')
+			dispatch(removeConversation())
 			dispatch(removeUser())
 			toast.success(response.data.message);
 			navigate('/login')	

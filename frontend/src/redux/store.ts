@@ -1,16 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import userSlice from './userslice'
-
-import {
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from 'redux-persist'
+import conversationSlice from './conversationslice'
+import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import messageSlice from './messageslice'
 
 const persistConfig = {
   key: 'root',
@@ -18,11 +11,16 @@ const persistConfig = {
   storage,
 }
 
-const persistedReducer = persistReducer(persistConfig, userSlice)
+const rootReducer = combineReducers({
+  user: userSlice,
+  conversation: conversationSlice,
+  messages:messageSlice
+})
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+
 export const store = configureStore({
-  reducer: {
-    user: persistedReducer
-  },
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

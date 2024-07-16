@@ -4,15 +4,21 @@ import type { RootState } from "./store";
 
 export interface UserState {
   user: {
-    id?:String,
-    username?:String,
-    fullname?:String,
-    password?:String
+    id:string,
+    username:string,
+    fullName:string,
+    profilePic:string
   } | null; 
 }
 
+
 const initialState: UserState = {
-  user: {} ||null,
+  user: {
+    id:'',
+    username:'',
+    fullName:'',
+    profilePic:''
+  } ||null,
 };
 
 export const userSlice = createSlice({

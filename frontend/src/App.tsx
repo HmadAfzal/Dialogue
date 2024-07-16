@@ -34,3 +34,4 @@ function App() {
 export default App
 
 
+// todo: select convo, getmessage, sendmessage, searchuser
