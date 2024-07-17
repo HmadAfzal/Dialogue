@@ -6,7 +6,8 @@ export interface MessageType {
     createdAt:string,
     id:string,
     senderId:string,
-    updatedAt:string
+    updatedAt:string,
+    shouldShake?: boolean
 }
 
 

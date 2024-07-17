@@ -24,6 +24,7 @@ const Message: React.FC<MessageProps> = ({ message, conversation }) => {
 
   const chatClass = fromMe ? "chat-end" : "chat-start";
   const bubbleBg = fromMe ? "bg-[#3bb9a4]" : "";
+  const shakeClass = message.shouldShake ? "shake" : "";
 
   return (
     <div className={`chat ${chatClass}`}>
@@ -35,7 +36,7 @@ const Message: React.FC<MessageProps> = ({ message, conversation }) => {
           />
         </div>
       </div>
-      <p className={`chat-bubble text-white ${bubbleBg} text-sm md:text-md`}>
+      <p className={`chat-bubble text-white ${bubbleBg} ${shakeClass && 'shake'} text-sm md:text-md`}>
         {message.body}
       </p>
       <span className="chat-footer opacity-50 text-xs flex gap-1 items-center text-white">

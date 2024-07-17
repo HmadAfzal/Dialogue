@@ -4,8 +4,8 @@ import authRoutes from '../src/routes/auth.route.js'
 import cookieParser from 'cookie-parser';
 import cors from 'cors'
 import 'dotenv/config'
+import { app, server } from './socket/socket.js';
 
-const app=express();
 
 const port = process.env.PORT || '5000';
 
@@ -22,6 +22,6 @@ app.use('/api/auth', authRoutes)
 app.use('/api/messages', messageRoutes)
 
 
-app.listen(port,()=>{
+server.listen(port,()=>{
     console.log(`app is listening at port ${port}`)
 });
