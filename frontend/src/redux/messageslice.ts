@@ -18,7 +18,7 @@ export const messageSlice = createSlice({
       state.messages = action.payload;
     },
     addMessage: (state, action: PayloadAction<MessageType>) => {
-      state.messages.push(action.payload);
+      state.messages = [...state.messages, action.payload];
     },
   },
 });

@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { ConversationType } from "../../Schema/conversationType";
 import { getRandomEmoji } from '../../utils/getEmoji'
-import { useAppDispatch } from "../../redux/hooks";
-import {  selectConversation } from "../../redux/conversationslice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import {  getConversation, selectConversation } from "../../redux/conversationslice";
 
 const Conversation = ({ conversation }: { conversation: ConversationType }) => {
+	
 	const [emoji, setEmoji] = useState<string>()
+	const selectedConversation=useAppSelector(getConversation);
 	useEffect(() => {
 		const emojiGot = getRandomEmoji();
 		setEmoji(emojiGot)
@@ -13,15 +15,16 @@ const Conversation = ({ conversation }: { conversation: ConversationType }) => {
 
 
 	const dispatch = useAppDispatch()
+
 	const selectConvo = (conversation: ConversationType) => {
 		dispatch(selectConversation(conversation))
-
 	}
 
+	const isSelected=selectedConversation?.id==conversation.id
 
 	return (
 		<>
-			<div className='flex gap-2 items-center hover:bg-[#3bb9a4] rounded p-2 py-1 cursor-pointer' onClick={() => { selectConvo(conversation) }}>
+			<div className={`flex gap-2 items-center hover:bg-[#3bb9a4] rounded p-2 py-1 cursor-pointer ${isSelected && 'bg-[#3bb9a4]'}` } onClick={() => { selectConvo(conversation) }}>
 				<div className='avatar online'>
 					<div className='w-8 md:w-12 rounded-full'>
 						<img src={conversation?.profilepic} alt='user avatar' />
