@@ -38,7 +38,7 @@ const navigate=useNavigate();
 			<div className='w-full p-6 rounded-lg shadow-md bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0 flex flex-col justify-center gap-8'>
 				<h1 className='text-4xl font-bold text-center text-gray-300'>
 					Login
-					<span className='text-[#249f8b]'> ChatApp</span>
+					<span className='text-[#249f8b]'> Dialogue</span>
 				</h1>
 
 				<form onSubmit={handleSubmit(onFormSubmit)}>
