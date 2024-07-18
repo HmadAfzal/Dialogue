@@ -6,7 +6,7 @@ Dialogue is a PERN Stack Chatting App. Uses Socket.io for real time communicatio
 [👁Demo Link:](https://youtu.be/Rvso6qT_pC0) 👈
 
 ## Tech Stack
-- **Frontend**:React, Tailwind-Css, DaisyUi, socket.io-client
+- **Frontend**:React, Tailwind-Css, DaisyUi, socket.io-client, Redux
 - **Backend**:,Typescript, Prisma, Socket.io, Express.js
 - **Database**: PostgreeSQL
 - **Authentication**: JWT, BcryptJs
