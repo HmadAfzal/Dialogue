@@ -2,8 +2,7 @@
 
 Dialogue is a PERN Stack Chatting App. Uses Socket.io for real time communication and stores user details in encrypted format in Postgres Database.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Rvso6qT_pC0?si=AIHuVpUig8mv7Mha" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-  
+![App SS](/frontend/public/chat.png)
 
 ## Tech Stack
 - **Frontend**:React, Tailwind-Css, DaisyUi, socket.io-client
