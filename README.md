@@ -41,4 +41,4 @@ JWT_SECRET=""
 
 
 ### Contact
-[Hmad Afzal](https://hmadafzal.vercel.app/) - hmadafzal00@gmail.com.com
+[Hmad Afzal](https://hmadafzal.vercel.app/) - hmadafzal00@gmail.com
